@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';  // Import Link
-import Card from './Card';  // Assuming Card component exists
+import Card from './card';  // Assuming Card component exists
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
