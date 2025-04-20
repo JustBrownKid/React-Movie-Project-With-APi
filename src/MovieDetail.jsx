@@ -27,7 +27,7 @@ const MovieDetail = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center  h-screen">
         {/* Updated loader */}
         <div className="w-16 h-16 border-8 border-dashed border-blue-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
@@ -39,7 +39,7 @@ const MovieDetail = () => {
   }
 
   return (
-    <div className="p-6 text-white">
+    <div className="p-6 bg-gray-800 text-white">
       {/* Movie Info */}
       <div className="lg:flex lg:items-center lg:space-x-12">
         {/* Poster */}
@@ -78,8 +78,8 @@ const MovieDetail = () => {
           </div>
 
           {/* Description */}
-          <p className="text-gray-900 mb-6 leading-relaxed">
-            <span className="font-semibold text-gray-800">Synopsis:</span> {movie.description}
+          <p className=" mb-6 leading-relaxed">
+            <span className="font-semibold">Synopsis:</span> {movie.description}
           </p>
 
           {/* Buttons */}

@@ -27,7 +27,8 @@ const MoviePlay = () => {
        });
    }, [id]);
   return (
-    <div style={{ maxWidth: '900px', margin: '40px auto', color: 'black' }}>
+    <div className= " h-screen bg-gray-800">
+    <div style={{ maxWidth: '900px', margin: 'auto', color: 'black' }}>
 
       {loading ? (
         <div className="flex justify-center items-center h-screen">
@@ -36,8 +37,7 @@ const MoviePlay = () => {
       </div>
       ) : movie ? (
         <>
-          <h1 className='tect-bold' style={{ textAlign: 'center', marginBottom: '1rem' }}>{movie.title}</h1>
-          <h1 className='bg-green-600 mb-5 text-white p-5 font-bold'> ! Testing State မှာမဖြစ်သောကြောင့် Movie data များသည် Dummy(fake data) များထည့်ထားပါသည်</h1> 
+          <h1 className='bg-green-600 mb-5 text-white p-5 font-bold'> ! Testing State မှာဖြစ်သောကြောင့် Movie data များသည် Dummy(fake data) များထည့်ထားပါသည်</h1> 
           <Plyr
             source={{
               type: 'video',
@@ -68,6 +68,7 @@ const MoviePlay = () => {
       ) : (
         <p>Movie not found.</p>
       )}
+    </div>
     </div>
   );
 };

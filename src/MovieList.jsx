@@ -34,7 +34,7 @@ const MovieList = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-8">
+    <div className="grid grid-cols-2 bg-gray-800 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-8">
       {movies.length === 0 ? (
         <div className="col-span-full text-center text-white">
           <p>No movies found.</p>
