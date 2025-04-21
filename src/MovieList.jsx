@@ -25,42 +25,48 @@ const MovieList = () => {
       });
   }, []);
 
-  const filteredMovies = movies.filter((movie) =>
-    movie.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen bg-black">
         <div className="w-16 h-16 border-8 border-dashed border-blue-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
 
-  return (
-    <div className="bg-gray-900 min-h-screen p-6">
-      <div className="max-w-4xl mx-auto mb-6">
-        <input
-          type="text"
-          placeholder="Search movies..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-2 rounded-md text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-        {filteredMovies.length === 0 ? (
-          <div className="col-span-full text-center text-white">
-            <p>No movies found.</p>
-          </div>
-        ) : (
-          filteredMovies.map((movie) => (
-            <Link key={movie.id} to={`/movie/${movie.id}`}>
-              <Card name={movie.title} image={movie.image} />
-            </Link>
-          ))
-        )}
+  const MovieFliter = movies.filter(movie => (movie.title.toLowerCase().includes(searchTerm.toLowerCase())))
+  return (
+    <div className="bg-gradient-to-b from-gray-950 to-gray-900 min-h-screen py-10 px-4">
+      <div className="max-w-6xl mx-auto">
+        {/* Heading */}
+
+        {/* Search Bar */}
+        <div className="mb-8">
+          <input
+            type="text"
+            placeholder="Search for a movie..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 placeholder:text-gray-400"
+          />
+        </div>
+          {MovieFliter.length === 0 ? (  
+            <h1 className="text-white text-3xl font text-center mt-5">
+            No movie found
+          </h1>
+          ):( 
+         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+           {MovieFliter.map((movie) => (
+             <Link
+               key={movie.id}
+               to={`/movie/${movie.id}`}
+               className="transition transform hover:scale-105 hover:shadow-xl"
+             >
+               <Card name={movie.title} image={movie.image} />
+             </Link>
+           ))}
+         </div>
+            )}
       </div>
     </div>
   );
