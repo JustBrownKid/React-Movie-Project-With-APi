@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams ,Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const MovieDetail = () => {
@@ -27,8 +27,7 @@ const MovieDetail = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center  h-screen">
-        {/* Updated loader */}
+      <div className="flex justify-center items-center h-screen bg-black">
         <div className="w-16 h-16 border-8 border-dashed border-blue-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
@@ -39,87 +38,82 @@ const MovieDetail = () => {
   }
 
   return (
-    <div className="p-6 bg-gray-800 text-white">
-      {/* Movie Info */}
-      <div className="lg:flex lg:items-center lg:space-x-12">
+  <div className="relative min-h-screen bg-black text-white overflow-hidden">
+    {/* Background Poster */}
+    <div
+      className="absolute inset-0 bg-cover bg-center blur-sm brightness-50"
+      style={{ backgroundImage: `url(${movie.image})` }}
+    ></div>
+
+    {/* Overlay Content */}
+    <div className="relative z-10 px-4 sm:px-6 pt-16 pb-32 max-w-6xl mx-auto">
+      <div className="bg-white/5 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 flex flex-col items-center lg:flex-row lg:items-start lg:space-x-12">
         {/* Poster */}
-        <div className="flex-shrink-0 mb-8 lg:mb-0 flex justify-center">
+        <div className="mb-6 lg:mb-0">
           <img
-            className="w-64 h-96 object-cover rounded-lg shadow-lg border border-gray-700"
             src={movie.image}
             alt={movie.title}
+            className="w-60 h-96 object-cover rounded-xl shadow-lg border border-white/10"
           />
         </div>
 
         {/* Details */}
-        <div className="lg:flex-1">
-          <h2 className="text-3xl font-bold mb-4">{movie.title}</h2>
+        <div className="flex-1 w-full space-y-4 text-center lg:text-left">
+          <h1 className="text-4xl font-bold text-amber-400">{movie.title}</h1>
 
-          {/* Meta */}
-          <div className="flex flex-wrap gap-2 mb-2">
-            <span className="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-yellow-300 text-gray-800">
-              <span className="h-2 w-2 rounded-full bg-blue-500 mr-1.5"></span> {movie.release_year}
-            </span>
-            <span className="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-yellow-300 text-gray-800">
-              <span className="h-2 w-2 rounded-full bg-blue-500 mr-1.5"></span> {movie.runtime}
-            </span>
-          </div>
+          <div className="space-y-2 text-sm text-gray-300">
+  {/* Release Year & Runtime */}
+  <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+    <span className="bg-gray-800 px-3 py-1 rounded">{movie.release_year}</span>
+    <span className="bg-gray-800 px-3 py-1 rounded">{movie.runtime}</span>
+  </div>
 
-          {/* Categories */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {movie.categories?.map((category, index) => (
-              <span
-                key={index}
-                className="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-red-400 text-zinc-900"
-              >
-                {category.name}
-              </span>
-            ))}
-          </div>
+  {/* Categories */}
+  <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+    {movie.categories?.map((cat, i) => (
+      <span key={i} className="bg-red-600 px-3 py-1 rounded">
+        {cat.name}
+      </span>
+    ))}
+  </div>
+</div>
 
-          {/* Description */}
-          <p className=" mb-6 leading-relaxed">
-            <span className="font-semibold">Synopsis:</span> {movie.description}
+
+          <p className="text-gray-200 leading-relaxed">
+            <span className="font-semibold text-white">Synopsis:</span> {movie.description}
           </p>
 
-          {/* Buttons */}
-          <div className="space-x-4">
-           
-<Link
-  to={`/movie/play/${movie.id}`}
-  className="inline-block bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ease-in-out"
->
-  Watch Now
-</Link>
+          {/* Watch Now Button */}
+          <div className="pt-4">
+            <Link
+              to={`/movie/play/${movie.id}`}
+              className="inline-block bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 px-8 rounded shadow-lg transition-all duration-200"
+            >
+              Watch Now
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Cast Section */}
-      <div className="mt-10">
-        <h2 className="text-2xl font-semibold text-white m-4">Cast Members</h2>
-        <div className="m-8 overflow-x-auto">
-          <div className="flex space-x-4 pb-2">
-            {movie.actors?.map((cast) => (
-              <div
-                key={cast.id}
-                className="relative group min-w-[140px] bg-gray-800 rounded-xl overflow-hidden shadow-md flex-shrink-0 border border-gray-700 transition-all duration-300 hover:shadow-[0_0_20px_rgba(99,102,241,0.5)]"
-              >
-                <img
-                  src={cast.image}
-                  alt={cast.name}
-                  className="w-full h-40 object-cover group-hover:scale-105 group-hover:brightness-75 transition-transform duration-300 ease-in-out"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent px-2 py-2 opacity-0 group-hover:opacity-100 transition duration-300">
-                  <h3 className="text-sm m-2 mb-3 text-white font-semibold truncate">{cast.name}</h3>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Cast */}
+      <div className="mt-12">
+        <h2 className="text-2xl font-bold mb-4">Cast</h2>
+        <div className="flex gap-4 overflow-x-auto pb-2">
+          {movie.actors?.map((actor) => (
+            <div
+              key={actor.id}
+              className="min-w-[130px] rounded-xl bg-white/10 border border-white/10 shadow-md overflow-hidden hover:scale-105 transition duration-300"
+            >
+              <img src={actor.image} alt={actor.name} className="h-40 w-full object-cover" />
+              <div className="p-2 text-center text-sm font-medium text-white">{actor.name}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default MovieDetail;
